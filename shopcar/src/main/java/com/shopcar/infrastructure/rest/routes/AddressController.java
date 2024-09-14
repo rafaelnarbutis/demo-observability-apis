@@ -1,14 +1,8 @@
 package com.shopcar.infrastructure.rest.routes;
 
 import com.shopcar.application.services.command.enterprise.CreateAddressService;
-import com.shopcar.application.services.command.enterprise.CreateEnterpriseService;
-import com.shopcar.application.services.command.enterprise.CreateTransportService;
 import com.shopcar.application.services.query.FindAddressService;
-import com.shopcar.application.services.query.FindEnterpriseService;
-import com.shopcar.application.services.query.FindTransportsService;
 import com.shopcar.infrastructure.rest.dtos.AddressDTOS;
-import com.shopcar.infrastructure.rest.dtos.EnterpriseDTOS;
-import com.shopcar.infrastructure.rest.dtos.TransportDTOS;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
