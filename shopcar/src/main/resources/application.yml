@@ -9,3 +9,21 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
+
+otel:
+  service:
+    name: shopcar
+  exporter:
+    otlp:
+      endpoint: http://localhost:4317
+      traces:
+        protocol: grpc
+      metrics:
+        protocol: grpc
+      logs:
+        protocol: grpc
+  logs:
+    exporter: otlp
+
+
+
