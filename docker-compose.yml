@@ -1,6 +1,19 @@
 version: "2"
 services:
 
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: grafana
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    restart: always
+    environment:
+      - "GF_INSTALL_PLUGINS=grafana-opensearch-datasource"
+    ports:
+      - "3000:3000"
+
   # Jaeger - Trace
   jaeger-all-in-one:
     image: jaegertracing/all-in-one:latest
