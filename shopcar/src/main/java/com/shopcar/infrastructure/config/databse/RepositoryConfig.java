@@ -11,13 +11,17 @@ import org.springframework.context.annotation.Configuration;
 public class RepositoryConfig {
 
     private final EnterpriseEntityJpaRepository enterpriseEntityJpaRepository;
+    private final TransportEntityJpaRepository transportEntityJpaRepository;
+    private final AddressEntityJpaRepository addressEntityJpaRepository;
 
     public RepositoryConfig(EnterpriseEntityJpaRepository enterpriseEntityJpaRepository, TransportEntityJpaRepository transportEntityJpaRepository, AddressEntityJpaRepository addressEntityJpaRepository) {
         this.enterpriseEntityJpaRepository = enterpriseEntityJpaRepository;
+        this.transportEntityJpaRepository = transportEntityJpaRepository;
+        this.addressEntityJpaRepository = addressEntityJpaRepository;
     }
 
     @Bean
     EnterpriseRepositoryImpl enterpriseRepository() {
-        return new EnterpriseRepositoryImpl(enterpriseEntityJpaRepository);
+        return new EnterpriseRepositoryImpl(enterpriseEntityJpaRepository, transportEntityJpaRepository, addressEntityJpaRepository);
     }
 }

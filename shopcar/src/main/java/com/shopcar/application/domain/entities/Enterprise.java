@@ -4,13 +4,16 @@ package com.shopcar.application.domain.entities;
 import com.shopcar.application.domain.entities.vo.AddressId;
 import com.shopcar.application.domain.entities.vo.EnterpriseId;
 import com.shopcar.application.domain.entities.vo.TransportId;
+import com.shopcar.application.domain.events.AddressEvent;
+import com.shopcar.application.domain.events.TransportEvent;
 import com.shopcar.application.exceptions.ValidationException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Enterprise {
+public class Enterprise extends Aggregate {
     private EnterpriseId id;
 
     private String cnpj;
@@ -52,6 +55,8 @@ public class Enterprise {
                 adr -> { throw new ValidationException("address already exist"); },
                 () -> this.addresses.add(address)
         );
+
+        addEvent(new AddressEvent.Created(EVENT_VERSION, LocalDateTime.now(), address));
     }
 
     public void removeAddress(AddressId addressId) {
@@ -61,6 +66,8 @@ public class Enterprise {
                 adr -> this.addresses.remove(adr),
                 () -> { throw  new ValidationException("address not found"); }
         );
+
+        addEvent(new AddressEvent.Deleted(EVENT_VERSION, LocalDateTime.now(), addressId));
     }
 
     public void addTransport(Transport transport) {
@@ -70,6 +77,8 @@ public class Enterprise {
                 trp -> { throw  new ValidationException("transport already exist"); },
                 () -> this.transports.add(transport)
         );
+
+        addEvent(new TransportEvent.Created(EVENT_VERSION, LocalDateTime.now(), transport));
     }
 
     public void removeTransport(TransportId transportId) {
@@ -79,6 +88,8 @@ public class Enterprise {
                 trp -> this.transports.remove(trp),
                 () -> { throw  new ValidationException("transport not found"); }
         );
+
+        addEvent(new TransportEvent.Deleted(EVENT_VERSION, LocalDateTime.now(), transportId));
     }
 
     public final EnterpriseId getId() {
